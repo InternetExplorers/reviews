@@ -5,7 +5,7 @@ CREATE DATABASE records;
 USE records;
 
 CREATE TABLE users (
-  id int NOT NULL,
+  id int NOT NULL AUTO_INCREMENT,
   name varchar(20),
   location varchar(40),
   numFriends int,
@@ -14,11 +14,13 @@ CREATE TABLE users (
   PRIMARY KEY(id)
 );
 
-CREATE TABLE review (
-  id int NOT NULL,
-  message text NOT NULL,
+CREATE TABLE reviews (
+  id int NOT NULL AUTO_INCREMENT,
+  message text,
   stars int NOT NULL,
-  posted varchar(200) NOT NULL,
+  posted varchar(100),
+  userID int,
   PRIMARY KEY(id),
-  FOREIGN KEY(userID) REFERENCES Users (id),
+  FOREIGN KEY(userID) REFERENCES Users (id)
 );
+

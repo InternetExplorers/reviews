@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
   // context: __dirname + '/client/public',
-  entry: __dirname + '/client/index.jsx',
+  entry: `${__dirname}/client/index.jsx`,
   module: {
     rules: [
       {
@@ -12,14 +12,14 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['env', 'react']
+            presets: ['env', 'react'],
           },
         },
       },
     ],
   },
   output: {
-    path: path.resolve(__dirname + '/public/dist'),
+    path: path.resolve(`${__dirname}/public/dist`),
     filename: 'bundle.js',
-  }
+  },
 };
