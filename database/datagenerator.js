@@ -141,3 +141,4 @@ const second = function generateReviews(restaurants, paragraphs) {
 
 
 makeData(names, restos, paras, second);
+db.end();

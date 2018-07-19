@@ -3,12 +3,12 @@ import React from 'react';
 export default class Reviews extends React.Component {
   constructor() {
     super();
-
+  
     this.state = {
       satisfied: 'I love this product!!',
       unhappy: 'Arrived late and damaged :('
     };
-  }
+  }  
 
   render() {
     return (
