@@ -12,7 +12,6 @@ export default class Reviews extends React.Component {
   }
 
   render() {
-    //const { unhappy } = this.state;  example destructuring
     return (
       <div>
         <span> UserInfo will go here.</span>
