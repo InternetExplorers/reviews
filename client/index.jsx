@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-  
- 
-ReactDOM.render(<h1>hello</h1>, document.getElementById('app'));
+import Reviews from './Reviews.jsx';
+import TopBar from './TopBar.jsx';
+
+ReactDOM.render(<Reviews />, document.getElementById('app'));
