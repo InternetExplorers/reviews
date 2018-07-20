@@ -12,7 +12,6 @@ export default class ReviewModule extends React.Component {
   }
 
   render() {
-    //const { unhappy } = this.state;  example destructuring
     return (
       <div>
         <TopBar />
