@@ -108,30 +108,27 @@ const paras = ['Lorem ipsum dolor amet fanny pack thundercats church-key glossie
 
   'Gochujang air plant meh, franzen butcher post-ironic dreamcatcher vegan subway tile. Lyft green juice gastropub meggings dreamcatcher cray direct trade franzen yr unicorn. Chambray occupy wolf vaporware, bitters gentrify letterpress franzen prism artisan salvia listicle four dollar toast tilde vegan. Etsy umami street art activated charcoal vexillologist, seitan craft beer. Distillery single-origin coffee bushwick, palo santo readymade snackwave fam af. Wayfarers la croix microdosing coloring book, before they sold out snackwave cliche beard butcher roof party swag pop-up viral copper mug. Narwhal schlitz bicycle rights health goth listicle.',
 
-
   'Thundercats street art literally direct trade 90s helvetica hell of. Tattooed selfies man bun marfa, authentic plaid artisan. Butcher VHS migas hoodie jean shorts stumptown brooklyn. Cornhole keffiyeh activated charcoal sriracha.',
 
   'Hella vexillologist pok pok yr meh distillery jean shorts. Freegan tattooed iceland lo-fi, thundercats schlitz poutine messenger bag kogi shoreditch. Tumblr ugh helvetica vexillologist, polaroid vegan pork belly next level banh mi chia cornhole jean shorts la croix skateboard. Prism you probably haven\'t heard of them migas blue bottle adaptogen shoreditch af. Kickstarter sustainable yr chicharrones poke lumbersexual helvetica vaporware. Asymmetrical gluten-free biodiesel, roof party skateboard cronut tote bag adaptogen distillery typewriter listicle church-key.',
 ];
 
-
+const imgURLS = ['../photos/p1.jpg', '../photos/p2.jpg', '../photos/p3.jpg', '../photos/p4.jpg', '../photos/p5.jpg'];
 const names = ['Opie Taylor', 'Aunt Bee', 'Floyd Lawson', 'Andy Taylor', 'Gomer Pyle', 'Barney Fife', 'Goober Pyle', 'Otis Campbell', 'Ellie', 'Thelma Lou'];
-
-const makeData = function makeBothData(fakeNames, restaurants, paragraphs, callback) {
-  fakeNames.forEach((name) => {
-    db.query('INSERT INTO users (name, location, numFriends, numPhotos, numReviews) VALUES (?, ?, ?, ?, ?)', [name, 'San Francisco, Ca', 12, 2, 5]);
+const dates = ['2008-7-04', '2010-12-31', '2018-4-20', '2017-9-08', '2018-12-25'];
+const users = function makeUsers(namesArray) {
+  namesArray.forEach((name) => {
+    const numFriends = Math.ceil(Math.random(10));
+    const numPhotos = Math.ceil(Math.random(10));
+    const numReviews = Math.ceil(Math.random(10));
+    const imgLoc = imgURLS[Math.floor(Math.random(5))];
+    db.query('INSERT INTO users (name, userLoc, numFriends, numPhotos, numReviews, photoLoc) VALUES (?, ?, ?, ?, ?, ?)', [name, 'San Francisco, Ca', numFriends, numPhotos, numReviews, imgLoc]);
   });
-  callback(restaurants, paragraphs);
 };
 
-const second = function generateReviews(restaurants, paragraphs) {
-  restaurants.forEach((resto, idx) => {
-    let userID = idx % 10;
-    if (userID === 0) {
-      userID = 10;
-    }
-    const stars = Math.ceil(Math.random() * 5);
-    db.query('INSERT INTO reviews (id, message, stars, posted, userID) VALUES (?, ?, ?, ?, ?)', [idx + 1, paragraphs[idx % 5], stars, 'April 1, 2017', (idx % 10) + 1], (err) => {
+const makeLocs = function generateLocations(restaurants) {
+  restaurants.forEach((resto) => {
+    db.query('INSERT INTO locations (locname) VALUES (?)', resto, (err) => {
       if (err) {
         throw err;
       }
@@ -140,5 +137,25 @@ const second = function generateReviews(restaurants, paragraphs) {
 };
 
 
-makeData(names, restos, paras, second);
+// Every person has a review for each restaurant.
+
+const reviews = function generateReviews(reviewers, restaurants, paragraphs) {
+  reviewers.forEach((reviewer, userIdx) => (
+    restaurants.forEach((resto, locIdx) => {
+      const date = dates[Math.floor(Math.random() * 5)];
+      const locID = locIdx + 1;
+      const userID = userIdx + 1;
+      const stars = Math.ceil(Math.random() * 5);
+      db.query('INSERT INTO reviews (message, stars, posted, userID, locID) VALUES (?, ?, ?, ?, ?)', [paragraphs[locIdx % 5], stars, date, userID, locID], (err) => {
+        if (err) {
+          console.log(err);
+          throw err;
+        }
+      });
+    })
+  ));
+};
+users(names);
+makeLocs(restos);
+reviews(names, restos, paras);
 db.end();
