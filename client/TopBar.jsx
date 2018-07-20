@@ -11,7 +11,7 @@ export default class TopBar extends React.Component {
   render() {
     return (
       <div>
-        asdf
+        The TopBar will appear here.
       </div>);
   }
 }

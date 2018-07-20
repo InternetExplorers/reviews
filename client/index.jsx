@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Reviews from './Reviews.jsx';
-import TopBar from './TopBar.jsx';
+import ReviewModule from './ReviewModule.jsx';
 
-ReactDOM.render(<Reviews />, document.getElementById('app'));
+ReactDOM.render(<ReviewModule />, document.getElementById('app'));
