@@ -137,8 +137,6 @@ const makeLocs = function generateLocations(restaurants) {
 };
 
 
-// Every person has a review for each restaurant.
-
 const reviews = function generateReviews(reviewers, restaurants, paragraphs) {
   reviewers.forEach((reviewer, userIdx) => (
     restaurants.forEach((resto, locIdx) => {
@@ -148,7 +146,6 @@ const reviews = function generateReviews(reviewers, restaurants, paragraphs) {
       const stars = Math.ceil(Math.random() * 5);
       db.query('INSERT INTO reviews (message, stars, posted, userID, locID) VALUES (?, ?, ?, ?, ?)', [paragraphs[locIdx % 5], stars, date, userID, locID], (err) => {
         if (err) {
-          console.log(err);
           throw err;
         }
       });
