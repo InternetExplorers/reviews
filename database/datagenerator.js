@@ -136,15 +136,14 @@ const makeLocs = function generateLocations(restaurants) {
   });
 };
 
-
 const reviews = function generateReviews(reviewers, restaurants, paragraphs) {
-  reviewers.forEach((reviewer, userIdx) => (
-    restaurants.forEach((resto, locIdx) => {
+  restaurants.forEach((resto, locIdx) => (
+    reviewers.forEach((reviewer, userIdx) => {
       const date = dates[Math.floor(Math.random() * 5)];
-      const locID = locIdx + 1;
       const userID = userIdx + 1;
       const stars = Math.ceil(Math.random() * 5);
-      db.query('INSERT INTO reviews (message, stars, posted, userID, locID) VALUES (?, ?, ?, ?, ?)', [paragraphs[locIdx % 5], stars, date, userID, locID], (err) => {
+      const paragraph = paragraphs[Math.floor(Math.random() * 5)];
+      db.query('INSERT INTO reviews (message, stars, posted, userID, locID) VALUES (?, ?, ?, ?, ?)', [paragraph, stars, date, userID, locIdx + 1], (err) => {
         if (err) {
           throw err;
         }
