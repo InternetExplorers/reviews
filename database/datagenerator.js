@@ -118,10 +118,10 @@ const names = ['Opie Taylor', 'Aunt Bee', 'Floyd Lawson', 'Andy Taylor', 'Gomer 
 const dates = ['2008-7-04', '2010-12-31', '2018-4-20', '2017-9-08', '2018-12-25'];
 const users = function makeUsers(namesArray) {
   namesArray.forEach((name) => {
-    const numFriends = Math.ceil(Math.random(10));
-    const numPhotos = Math.ceil(Math.random(10));
-    const numReviews = Math.ceil(Math.random(10));
-    const imgLoc = imgURLS[Math.floor(Math.random(5))];
+    const numFriends = Math.ceil(Math.random() * 10);
+    const numPhotos = Math.ceil(Math.random() * 10);
+    const numReviews = Math.ceil(Math.random() * 10);
+    const imgLoc = imgURLS[Math.floor(Math.random() * 5)];
     db.query('INSERT INTO users (name, userLoc, numFriends, numPhotos, numReviews, photoLoc) VALUES (?, ?, ?, ?, ?, ?)', [name, 'San Francisco, Ca', numFriends, numPhotos, numReviews, imgLoc]);
   });
 };
@@ -151,6 +151,7 @@ const reviews = function generateReviews(reviewers, restaurants, paragraphs) {
     })
   ));
 };
+
 users(names);
 makeLocs(restos);
 reviews(names, restos, paras);

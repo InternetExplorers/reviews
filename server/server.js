@@ -6,6 +6,13 @@ const db = require('../database/dbAPI');
 const app = express();
 const port = process.env.PORT || 3004;
 
+app.use(bodyParser.json());
+
+app.use('/', (req, res, next) => {
+  console.log(req.body);
+  next();
+});
+
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/locations/:locID', (req, res) => {
