@@ -13,7 +13,7 @@ export default class Reviews extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="textBox">
         <span> UserInfo will go here.</span>
         <span> TextBox will go here.</span>
       </div>

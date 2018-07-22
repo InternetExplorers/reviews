@@ -8,7 +8,6 @@ enzyme.configure({ adapter: new Adapter() });
 
 
 describe('TopBar testing suite', () => {
-
   it('should render one <textarea /> component', () => {
     const wrapper = shallow(<TopBar name={'testname'} searchText={'testText'} handleTextChange={function(){}} />);
     expect(wrapper.find('.searchBox').exists()).toEqual(true);
