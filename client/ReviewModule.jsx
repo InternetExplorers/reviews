@@ -18,7 +18,7 @@ export default class ReviewModule extends React.Component {
           userloc: 'San Francisco, CA',
           numfriends: 15,
           photoLoc: '../photos/p1.jpg',
-          mumreviews: 5,
+          numreviews: 5,
           message: 'Here is a review.  The text is long!',
         },
       ],
