@@ -34,13 +34,13 @@ export default class ReviewModule extends React.Component {
   }
 
   fetchReviews(restaurantID) {
-    return new Promise((resolve) => {
-      axios.get(`/locations/${restaurantID}`)
-        .then((response) => {
-          this.setState({ reviews: response.data }, () => {
-            resolve(response.data);
-          });
-        });
+    $.ajax({
+      type: 'GET',
+      url: `/locations/${restaurantID}`,
+      contentType: 'application/json',
+      success: (response) => {
+        this.setState({ reviews: response });
+      },
     });
   }
 
