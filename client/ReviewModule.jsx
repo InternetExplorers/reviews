@@ -36,8 +36,8 @@ export default class ReviewModule extends React.Component {
 
   componentDidMount() {
     this.avgStars();
-    const pickOne = Math.ceil(Math.random() * 100);
-    this.fetchReviews(pickOne);
+    const randomReview = Math.ceil(Math.random() * 100);
+    this.fetchReviews(randomReview);
   }
 
   fetchReviews(restaurantID) {
