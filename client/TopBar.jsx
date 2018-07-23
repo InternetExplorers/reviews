@@ -79,12 +79,12 @@ export default class TopBar extends React.Component {
           <span>
             {greyVote.map(number => (
               <i
-                className="far fa-star fa-3x"
-                style={{ color: 'grey' }}
-                id={number.toString()}
-                onMouseOver={handleHover}
-                onFocus={handleHover}
-                key={number.toString()}
+                className = "far fa-star fa-3x"
+                style ={ { color: 'grey' } }
+                id = { number.toString() }
+                onMouseOver = { handleHover }
+                onFocus = { handleHover }
+                key = { number.toString() }
               />
             ))}
           </span>
