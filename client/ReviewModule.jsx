@@ -46,7 +46,7 @@ export default class ReviewModule extends React.Component {
       url: `/locations/${restaurantID}`,
       contentType: 'application/json',
       success: (response) => {
-        this.setState({ reviews: response }, () => (console.log(this.state.reviews)));
+        this.setState({ reviews: response });
       },
     });
   }
