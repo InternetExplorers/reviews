@@ -7,6 +7,10 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
         test: /\.jsx$/,
         exclude: /(node_modules|bower_components|webpack.config.js)/,
         use: {
