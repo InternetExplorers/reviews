@@ -99,16 +99,16 @@ export default class ReviewModule extends React.Component {
       <div className="mainView">
         <TopBar
           className="topBar"
-          avg={avgStars}
-          name={name}
-          handleTextChange={this.handleTextChange}
-          searchText={searchText}
-          handleHover={this.handleStarHover}
-          starVote={redVote}
-          greyVote={greyVote}
-          handleMouseLeave={this.handleMouseLeave}
+          avg={ avgStars }
+          name={ name }
+          handleTextChange={ this.handleTextChange }
+          searchText={ searchText }
+          handleHover={ this.handleStarHover }
+          starVote={ redVote }
+          greyVote={ greyVote }
+          handleMouseLeave={ this.handleMouseLeave }
         />
-        <Reviews reviews={reviews} />
+        <Reviews reviews={ reviews } />
       </div>
     );
   }
