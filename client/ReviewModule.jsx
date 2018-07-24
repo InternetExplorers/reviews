@@ -42,7 +42,7 @@ export default class ReviewModule extends React.Component {
   fetchReviews(restaurantID) {
     $.ajax({
       type: 'GET',
-      url: `/locations/${restaurantID}`,
+      url: `/locations/${restaurantID}/reviews`,
       contentType: 'application/json',
       success: (response) => {
         this.handleStateChanges({ reviews: response });

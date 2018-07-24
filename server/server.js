@@ -15,11 +15,14 @@ app.use('/', (req, res, next) => {
 
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.get('/locations/:locID', (req, res) => {
+app.get('/locations/:locID/reviews', (req, res) => {
+  const { locID } = req.params;
   console.log('You are asking for info on location #: ', req.params.locID);
-  db.getById(req.params.locID, (results) => {
-    if (results) {
-      res.json(results);
+  db.getById(locID, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(results);
     }
   });
 });
