@@ -76,8 +76,7 @@ export default class ReviewModule extends React.Component {
     for (let idx = starNum + 1; idx <= 5; idx += 1) {
       greyArray.push(idx);
     }
-    this.setState({ redVote: redArray, greyVote: greyArray }, () => (
-      console.log(this.state.redVote)));
+    this.setState({ redVote: redArray, greyVote: greyArray });
   }
 
   avgStars() {
@@ -96,19 +95,19 @@ export default class ReviewModule extends React.Component {
 
     const name = reviews[0].locname;
     return (
-      <div className="mainView">
+      <div className="mainView flex-container">
         <TopBar
           className="topBar"
-          avg={ avgStars }
-          name={ name }
-          handleTextChange={ this.handleTextChange }
-          searchText={ searchText }
-          handleHover={ this.handleStarHover }
-          starVote={ redVote }
-          greyVote={ greyVote }
-          handleMouseLeave={ this.handleMouseLeave }
+          avg={avgStars}
+          name={name}
+          handleTextChange={this.handleTextChange}
+          searchText={searchText}
+          handleHover={this.handleStarHover}
+          starVote={redVote}
+          greyVote={greyVote}
+          handleMouseLeave={this.handleMouseLeave}
         />
-        <Reviews reviews={ reviews } />
+        <Reviews reviews={reviews} />
       </div>
     );
   }
