@@ -137,6 +137,7 @@ export default class TopBar extends React.Component {
 
           <SearchOptions>
             <SearchText
+              className="searchBox"
               type="text"
               onChange={handleTextChange}
               value={searchText}

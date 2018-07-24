@@ -26,7 +26,7 @@ export default class ReviewModule extends React.Component {
           message: 'Here is a review.  The text is long!',
         },
       ],
-      avgStars: 3,
+      avgStars: 0,
     };
     this.avgStars = this.avgStars.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -35,7 +35,6 @@ export default class ReviewModule extends React.Component {
   }
 
   componentDidMount() {
-    this.avgStars();
     const randomReview = Math.ceil(Math.random() * 100);
     this.fetchReviews(randomReview);
   }
@@ -46,7 +45,8 @@ export default class ReviewModule extends React.Component {
       url: `/locations/${restaurantID}`,
       contentType: 'application/json',
       success: (response) => {
-        this.setState({ reviews: response });
+        this.handleStateChanges({ reviews: response });
+        this.avgStars(response);
       },
     });
   }
@@ -57,13 +57,15 @@ export default class ReviewModule extends React.Component {
   }
 
   handleMouseLeave() {
-    this.setState({
+    this.handleStateChanges({
       redVote: [],
       greyVote: [1, 2, 3, 4, 5],
     });
   }
 
   handleStarHover(e) {
+    console.log(e);
+    console.log(typeof e.target);
     const { redVote, greyVote } = this.state;
     e.preventDefault();
     const starNum = parseInt(e.target.id, 10);
@@ -75,15 +77,19 @@ export default class ReviewModule extends React.Component {
     for (let idx = starNum + 1; idx <= 5; idx += 1) {
       greyArray.push(idx);
     }
-    this.setState({ redVote: redArray, greyVote: greyArray });
+    const voteState = { redVote: redArray, greyVote: greyArray };
+    this.handleStateChanges(voteState);
   }
 
-  avgStars() {
+  handleStateChanges(stateChange) {
+    this.setState(stateChange);
+  }
+
+  avgStars(reviewsArray) {
     let sum = 0;
-    const { reviews } = this.state;
-    sum = reviews.reduce((acc, curr) => (acc + curr.stars), 0);
-    const avg = sum / reviews.length;
-    this.setState({ avgStars: avg });
+    sum = reviewsArray.reduce((acc, curr) => (acc + curr.stars), 0);
+    const avg = sum / reviewsArray.length;
+    this.handleStateChanges({ avgStars: avg });
     return avg;
   }
 
