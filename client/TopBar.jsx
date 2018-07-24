@@ -110,7 +110,7 @@ export default class TopBar extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    this.setState({ value: e.target.value }, ()=>(console.log(this.state.value)));
+    this.setState({ value: e.target.id });
   }
 
   render() {
@@ -127,15 +127,13 @@ export default class TopBar extends React.Component {
     return (
       <div>
         <Wrapper>
-       
-            <Title>
-             Recommended Reviews
-    
-          <span className="ReviewLocationName">
-            {" for "}
-            { name }
-          </span>
-           </Title>
+          <Title>
+            Recommended Reviews
+            <span className="ReviewLocationName">
+              { ' for ' }
+              { name }
+            </span>
+          </Title>
 
           <SearchOptions>
             <SearchText
@@ -146,7 +144,8 @@ export default class TopBar extends React.Component {
             <SearchButton
               type="submit"
               onClick={this.handleClick}
-              id="reviewSearchButton">
+              id="reviewSearchButton"
+            >
               {<i className="fas fa-search fa-2x" />}
             </SearchButton>
             <span className="dropDown">
@@ -176,13 +175,9 @@ export default class TopBar extends React.Component {
               </DropDown>
             </span>
           </SearchOptions>
-
-
           <EmptyRatingBar>
-
-
             <EmptyUserInfo>
-              <BlankPhoto src={'./photos/empty.png'} alt="user's icon" />
+              <BlankPhoto src="./photos/empty.png" alt="user's icon" />
             </EmptyUserInfo>
 
             <RatingBarRightSide>
@@ -216,7 +211,10 @@ export default class TopBar extends React.Component {
               </StarsBar>
               <hr></hr>
               <div>
-              <StartReview href='./nopage.html'>Start your review of {name}</StartReview>
+                <StartReview href="./nopage.html">
+                Start your review of
+                  { name }
+                </StartReview>
               </div>
 
             </RatingBarRightSide>
