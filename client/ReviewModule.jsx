@@ -26,7 +26,7 @@ export default class ReviewModule extends React.Component {
           message: 'Here is a review.  The text is long!',
         },
       ],
-      avgStars: 3,
+      avgStars: 0,
     };
     this.avgStars = this.avgStars.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -35,7 +35,6 @@ export default class ReviewModule extends React.Component {
   }
 
   componentDidMount() {
-    this.avgStars();
     const randomReview = Math.ceil(Math.random() * 100);
     this.fetchReviews(randomReview);
   }
@@ -43,10 +42,11 @@ export default class ReviewModule extends React.Component {
   fetchReviews(restaurantID) {
     $.ajax({
       type: 'GET',
-      url: `/locations/${restaurantID}`,
+      url: `/locations/${restaurantID}/reviews`,
       contentType: 'application/json',
       success: (response) => {
-        this.setState({ reviews: response });
+        this.handleStateChanges({ reviews: response });
+        this.avgStars(response);
       },
     });
   }
@@ -57,17 +57,18 @@ export default class ReviewModule extends React.Component {
   }
 
   handleMouseLeave() {
-    this.setState({
+    this.handleStateChanges({
       redVote: [],
       greyVote: [1, 2, 3, 4, 5],
     });
   }
 
   handleStarHover(e) {
+    console.log(e);
+    console.log(typeof e.target);
     const { redVote, greyVote } = this.state;
     e.preventDefault();
     const starNum = parseInt(e.target.id, 10);
-    console.log(starNum);
     const redArray = [];
     const greyArray = [];
     for (let idx = 1; idx <= starNum; idx += 1) {
@@ -76,17 +77,24 @@ export default class ReviewModule extends React.Component {
     for (let idx = starNum + 1; idx <= 5; idx += 1) {
       greyArray.push(idx);
     }
-    this.setState({ redVote: redArray, greyVote: greyArray }, () => (
-      console.log(this.state.redVote)));
+    const voteState = { redVote: redArray, greyVote: greyArray };
+    this.handleStateChanges(voteState);
   }
 
-  avgStars() {
+  handleStateChanges(stateChange) {
+    this.setState(stateChange);
+  }
+
+  avgStars(reviewsArray) {
     let sum = 0;
-    const { reviews } = this.state;
-    sum = reviews.reduce((acc, curr) => (acc + curr.stars), 0);
-    const avg = sum / reviews.length;
-    this.setState({ avgStars: avg });
-    return avg;
+    if (reviewsArray.length > 0) {
+      sum = reviewsArray.reduce((acc, curr) => (acc + curr.stars), 0);
+      const avg = sum / reviewsArray.length;
+      this.handleStateChanges({ avgStars: avg });
+      return avg;
+    }
+    this.handleStateChanges({ avgStars: 0 });
+    return 0;
   }
 
   render() {
@@ -96,19 +104,19 @@ export default class ReviewModule extends React.Component {
 
     const name = reviews[0].locname;
     return (
-      <div className="mainView">
+      <div className="mainView flex-container">
         <TopBar
           className="topBar"
-          avg={ avgStars }
-          name={ name }
-          handleTextChange={ this.handleTextChange }
-          searchText={ searchText }
-          handleHover={ this.handleStarHover }
-          starVote={ redVote }
-          greyVote={ greyVote }
-          handleMouseLeave={ this.handleMouseLeave }
+          avg={avgStars}
+          name={name}
+          handleTextChange={this.handleTextChange}
+          searchText={searchText}
+          handleHover={this.handleStarHover}
+          starVote={redVote}
+          greyVote={greyVote}
+          handleMouseLeave={this.handleMouseLeave}
         />
-        <Reviews reviews={ reviews } />
+        <Reviews reviews={reviews} />
       </div>
     );
   }
