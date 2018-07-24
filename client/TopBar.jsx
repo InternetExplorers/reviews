@@ -213,10 +213,9 @@ export default class TopBar extends React.Component {
               <div>
                 <StartReview href="./nopage.html">
                 Start your review of
-                  { name }
+                  {name}
                 </StartReview>
               </div>
-
             </RatingBarRightSide>
           </EmptyRatingBar>
         </Wrapper>

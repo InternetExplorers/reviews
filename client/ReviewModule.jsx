@@ -67,7 +67,6 @@ export default class ReviewModule extends React.Component {
     const { redVote, greyVote } = this.state;
     e.preventDefault();
     const starNum = parseInt(e.target.id, 10);
-    console.log(starNum);
     const redArray = [];
     const greyArray = [];
     for (let idx = 1; idx <= starNum; idx += 1) {
