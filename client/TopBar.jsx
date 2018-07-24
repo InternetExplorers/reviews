@@ -99,7 +99,7 @@ export default class TopBar extends React.Component {
   constructor() {
     super();
     this.state = {
-      value: '',
+      searchString: '',
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -110,7 +110,7 @@ export default class TopBar extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    this.setState({ value: e.target.id });
+    this.setState({ searchString: e.target.id });
   }
 
   render() {
@@ -140,7 +140,7 @@ export default class TopBar extends React.Component {
               className="searchBox"
               type="text"
               onChange={handleTextChange}
-              value={searchText}
+              searchString={searchText}
             />
             <SearchButton
               type="submit"
