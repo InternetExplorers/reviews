@@ -10,23 +10,13 @@ import ReviewModule from '../ReviewModule.jsx';
 enzyme.configure({ adapter: new Adapter() });
 
 describe('ReviewModule testing suite', () => {
-  // const {
-  //   Simulate,
-  //   renderIntoDocument,
-  //   findRenderedDOMComponentWithClass,
-  //   scryRenderedDOMComponentsWithClass,
-  // } = ReactTestUtils;
-
   let wrapper;
-  // let app;
 
   beforeEach(() => {
     wrapper = shallow(<ReviewModule />);
-    // app = renderIntoDocument(<ReviewModule />);
   });
 
   describe('ReviewModule Testing Suite', () => {
-
     it('should render one <textarea /> component', () => {
       expect(wrapper.find('.mainView').exists()).toEqual(true);
     });
