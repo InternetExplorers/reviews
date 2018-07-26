@@ -41,7 +41,7 @@ jobs:
         
       - run: mysql -h 127.0.0.1 -u root < ./database/schema.sql
 
-      - run: node ./database/generatedata.js
+      - run: node ./database/datagenerator.js
 
       - run:
           command: node ./server/index.js
