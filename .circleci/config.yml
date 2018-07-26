@@ -44,7 +44,7 @@ jobs:
       - run: node ./database/datagenerator.js
 
       - run:
-          command: node ./server/index.js
+          command: node ./server/server.js
           background: true
 
       - run: yarn test
