@@ -26,7 +26,7 @@ const UserWrapper = styled.span`
   width: 250px;
   padding-top: 0px;
   height: 300px;
-  margin-bottom:0px;
+  margin-bottom: 0px;
 `;
 
 const TextWrapper = styled.span`

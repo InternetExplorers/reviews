@@ -38,7 +38,6 @@ const NameLink = styled.a`
 `;
 
 const UserTidbit = styled.div`
-
   font-size: 0.8em;
   &.locationName {
     font-weight: bold;

@@ -2,7 +2,6 @@ import React from 'react';
 import $ from 'jquery';
 import TopBar from './TopBar.jsx';
 import Reviews from './Reviews.jsx';
-// import ReviewStyles from './styles/ReviewStyles';
 
 export default class ReviewModule extends React.Component {
   constructor() {
