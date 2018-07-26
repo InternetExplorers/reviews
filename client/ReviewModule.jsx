@@ -81,10 +81,9 @@ export default class ReviewModule extends React.Component {
       sum = reviewsArray.reduce((acc, curr) => (acc + curr.stars), 0);
       const avg = sum / reviewsArray.length;
       this.setState({ avgStars: avg });
-      return avg;
+      return;
     }
     this.setState({ avgStars: 0 });
-    return 0;
   }
 
   render() {
