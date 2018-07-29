@@ -35,7 +35,7 @@ describe('TopBar testing suite', () => {
     expect(app.find('.searchBox').exists()).toEqual(true);
   });
 
-  it('should render two <select /> component', () => {
-    expect(app.find('.dropDown')).toHaveLength(2);
+  it('should render one <select /> component', () => {
+    expect(app.find('.dropDown')).toHaveLength(1);
   });
 });
