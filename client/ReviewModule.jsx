@@ -30,6 +30,7 @@ export default class ReviewModule extends React.Component {
     this.handleTextChange = this.handleTextChange.bind(this);
     this.handleStarHover = this.handleStarHover.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.handleDropDown = this.handleDropDown.bind(this);
   }
 
   componentDidMount() {
@@ -75,6 +76,64 @@ export default class ReviewModule extends React.Component {
     this.setState({ redVote: redArray, greyVote: greyArray });
   }
 
+  handleDropDown(e) {
+    const { reviews } = this.state;
+    const sortType = e.target.value;
+    let unsorted = reviews.slice();
+    const lowFirst = function compareLowest(a, b) {
+      return a.stars - b.stars;
+    };
+    const highFirst = function compareHighest(a, b) {
+      return b.stars - a.stars;
+    };
+    const earlyFirst = function compareEarliest(a, b) {
+      const yrA = parseInt(a.posted.slice(0, 4), 10);
+      const monthA = parseInt(a.posted.slice(5, 7), 10);
+      const dayA = parseInt(a.posted.slice(8, 10), 10);
+      const totalADays = yrA * 365 + monthA * 30 + dayA;
+      const yrB = parseInt(b.posted.slice(0, 4), 10);
+      const monthB = parseInt(a.posted.slice(5, 7), 10);
+      const dayB = parseInt(b.posted.slice(8, 10), 10);
+      const totalBDays = yrB * 365 + monthB * 30 + dayB;
+      if (totalADays < totalBDays) {
+        return -1;
+      }
+      if (totalADays > totalBDays) {
+        return 1;
+      }
+      return 0;
+    };
+    const lateFirst = function compareEarliest(a, b) {
+      const yrA = parseInt(a.posted.slice(0, 4), 10);
+      const monthA = parseInt(a.posted.slice(5, 7), 10);
+      const dayA = parseInt(a.posted.slice(8, 10), 10);
+      const totalADays = yrA * 365 + monthA * 30 + dayA;
+      const yrB = parseInt(b.posted.slice(0, 4), 10);
+      const monthB = parseInt(a.posted.slice(5, 7), 10);
+      const dayB = parseInt(b.posted.slice(8, 10), 10);
+      const totalBDays = yrB * 365 + monthB * 30 + dayB;
+      if (totalADays < totalBDays) {
+        return 1;
+      }
+      if (totalADays > totalBDays) {
+        return -1;
+      }
+      return 0;
+    };
+    if (sortType === 'Lowest') {
+      unsorted = unsorted.sort(lowFirst);
+    } else if (sortType === 'Highest') {
+      unsorted = unsorted.sort(highFirst);
+    } else if (sortType === 'Oldest') {
+      unsorted = unsorted.sort(earlyFirst);
+    } else if (sortType === 'Newest') {
+      unsorted = unsorted.sort(lateFirst);
+    } else {
+      this.setState({ reviews: unsorted });
+    }
+    this.setState({ reviews: unsorted });
+  }
+
   avgStars(reviewsArray) {
     let sum = 0;
     if (reviewsArray.length > 0) {
@@ -104,6 +163,7 @@ export default class ReviewModule extends React.Component {
           starVote={redVote}
           greyVote={greyVote}
           handleMouseLeave={this.handleMouseLeave}
+          handleDropDown={this.handleDropDown}
         />
         <Reviews reviews={reviews} />
       </div>
