@@ -30,6 +30,7 @@ export default class ReviewModule extends React.Component {
     this.handleTextChange = this.handleTextChange.bind(this);
     this.handleStarHover = this.handleStarHover.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
+    this.handleDropDown = this.handleDropDown.bind(this);
   }
 
   componentDidMount() {
@@ -75,6 +76,52 @@ export default class ReviewModule extends React.Component {
     this.setState({ redVote: redArray, greyVote: greyArray });
   }
 
+  handleDropDown(e) {
+    let sorted;
+    const { reviews } = this.state;
+    const sortType = e.target.value;
+    const lowFirst = function compareLowest(a, b) {
+      return a.stars - b.stars;
+    };
+    const highFirst = function compareHighest(a, b) {
+      return b.stars - a.stars;
+    };
+    const earlyFirst = function compareEarliest(a, b) {
+      const dateA = Date.parse(a.posted);
+      const dateB = Date.parse(b.posted);
+      if (dateA < dateB) {
+        return -1;
+      }
+      if (dateA > dateB) {
+        return 1;
+      }
+      return 0;
+    };
+    const lateFirst = function compareEarliest(a, b) {
+      const dateA = Date.parse(a.posted);
+      const dateB = Date.parse(b.posted);
+      if (dateA < dateB) {
+        return 1;
+      }
+      if (dateA > dateB) {
+        return -1;
+      }
+      return 0;
+    };
+    if (sortType === 'Lowest') {
+      sorted = reviews.sort(lowFirst);
+    } else if (sortType === 'Highest') {
+      sorted = reviews.sort(highFirst);
+    } else if (sortType === 'Oldest') {
+      sorted = reviews.sort(earlyFirst);
+    } else if (sortType === 'Newest') {
+      sorted = reviews.sort(lateFirst);
+    } else {
+      this.setState({ reviews: sorted });
+    }
+    this.setState({ reviews: sorted });
+  }
+
   avgStars(reviewsArray) {
     let sum = 0;
     if (reviewsArray.length > 0) {
@@ -104,6 +151,7 @@ export default class ReviewModule extends React.Component {
           starVote={redVote}
           greyVote={greyVote}
           handleMouseLeave={this.handleMouseLeave}
+          handleDropDown={this.handleDropDown}
         />
         <Reviews reviews={reviews} />
       </div>

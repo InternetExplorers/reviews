@@ -34,20 +34,25 @@ const SearchButton = styled.button`
   margin: 0px;
   background-color: red;
   color: white;
+  position: relative;
+  top: -8px;
 `;
 
 const SearchOptions = styled.form`
-  display: flex;
-  align-items: center;
+  // display: flex;
+  // align-items: center;
 `;
 
 const DropDown = styled.select`
   height: 30px;
-  width: 100px;
+  width: 150px;
   margin-left: 50px;
   background-color: #fff;
   border: 0px;
   font-size: 1em;
+  position: relative;
+  top: -15px;
+  left: 30px;
 `;
 
 const EmptyRatingBar = styled.div`
@@ -124,6 +129,7 @@ export default class TopBar extends React.Component {
       greyVote,
       starVote,
       handleMouseLeave,
+      handleDropDown,
     } = this.props;
     return (
       <div>
@@ -136,7 +142,7 @@ export default class TopBar extends React.Component {
             </ReviewLocation>
           </Title>
 
-          <SearchOptions>
+          <SearchOptions onChange={handleDropDown}>
             <SearchText
               className="searchBox"
               type="text"
@@ -149,35 +155,32 @@ export default class TopBar extends React.Component {
               onClick={this.handleClick}
               id="reviewSearchButton"
               onSubmit={this.handleClick}
+
             >
               {<i className="fas fa-search fa-2x" />}
             </SearchButton>
-            <span className="dropDown">
-              <DropDown>
-                <option value="Yelp">
-                  Yelp Sort
-                </option>
-                <option value="Newest">
-                  Newest First
-                </option>
-                <option value="Oldest">
-                  Oldest First
-                </option>
-                <option value="Highest">
-                  Highest Rated
-                </option>
-                <option value="Lowest">
-                  Lowest Rated
-                </option>
-              </DropDown>
-            </span>
-            <span className="dropDown">
-              <DropDown>
-                <option value="Hipster">
-                Language: Hipster
-                </option>
-              </DropDown>
-            </span>
+
+
+              <span className="dropDown">
+                <DropDown onChange={handleDropDown}>
+                  <option value="Yelp">
+                    Yelp Sort
+                  </option>
+                  <option value="Newest">
+                    Newest First
+                  </option>
+                  <option value="Oldest">
+                    Oldest First
+                  </option>
+                  <option value="Highest">
+                    Highest Rated
+                  </option>
+                  <option value="Lowest">
+                    Lowest Rated
+                  </option>
+                </DropDown>
+              </span>
+
           </SearchOptions>
           <EmptyRatingBar>
             <EmptyUserInfo>
