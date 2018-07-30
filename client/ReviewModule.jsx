@@ -7,7 +7,7 @@ export default class ReviewModule extends React.Component {
   constructor() {
     super();
     this.state = {
-      searchText: '',
+      name: 'InitialLoc',
       redVote: [],
       greyVote: [1, 2, 3, 4, 5],
       reviews: [
@@ -27,7 +27,6 @@ export default class ReviewModule extends React.Component {
       avgStars: 0,
     };
     this.avgStars = this.avgStars.bind(this);
-    this.handleTextChange = this.handleTextChange.bind(this);
     this.handleStarHover = this.handleStarHover.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleDropDown = this.handleDropDown.bind(this);
@@ -44,15 +43,13 @@ export default class ReviewModule extends React.Component {
       url: `/locations/${restaurantID}/reviews`,
       contentType: 'application/json',
       success: (response) => {
-        this.setState({ reviews: response });
+        this.setState({ reviews: response }, () => {
+          let currentName = this.state.reviews[0].locname;
+          this.setState({ name: currentName });
+        });
         this.avgStars(response);
       },
     });
-  }
-
-  handleTextChange(e) {
-    e.preventDefault();
-    this.setState({ searchText: e.target.value });
   }
 
   handleMouseLeave() {
@@ -135,18 +132,14 @@ export default class ReviewModule extends React.Component {
 
   render() {
     const {
-      avgStars, searchText, reviews, redVote, greyVote,
+      avgStars, reviews, redVote, greyVote, name,
     } = this.state;
-
-    const name = reviews[0].locname;
     return (
       <div className="mainView flex-container">
         <TopBar
           className="topBar"
           avg={avgStars}
           name={name}
-          handleTextChange={this.handleTextChange}
-          searchText={searchText}
           handleHover={this.handleStarHover}
           starVote={redVote}
           greyVote={greyVote}

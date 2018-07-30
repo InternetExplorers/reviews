@@ -1,9 +1,14 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const DateSpan = styled.span`
   margin-left: 10px;
+`;
+const RedStar = styled.img`
+  width: 25px;
+  height: 25px;
 `;
 
 export default class Stardate extends React.Component {
@@ -44,18 +49,18 @@ export default class Stardate extends React.Component {
       <div className="StarsRow">
         <span>
           {redVote.map(number => (
-            <i
-              className="far fa-star fa-1x"
-              style={{ color: 'red' }}
+            <RedStar
+              src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/redStar.png"
+
               key={number.toString()}
             />
           ))}
         </span>
         <span>
           {greyVote.map(number => (
-            <i
-              className="far fa-star fa-1x"
-              style={{ color: 'grey' }}
+            <RedStar
+              src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/greyStar.png"
+              alt="redStar"
               key={number.toString()}
             />
           ))}

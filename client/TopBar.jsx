@@ -27,7 +27,7 @@ const SearchText = styled.textarea`
   font-size: 1em;
 `;
 
-const SearchButton = styled.button`
+const SearchButton = styled.img`
   width: 30px;
   height: 31px;
   padding-left: 0px;
@@ -35,7 +35,7 @@ const SearchButton = styled.button`
   background-color: red;
   color: white;
   position: relative;
-  top: -8px;
+  top: 0px;
 `;
 
 const SearchOptions = styled.form`
@@ -80,6 +80,11 @@ const EmptyUserInfo = styled.span`
   padding-left: 10px;
 `;
 
+const RedStar = styled.img`
+  width: 35px;
+  height: 35px;
+`;
+
 const StarsBar = styled.span`
   height: 50px;
   width: 300px;
@@ -113,24 +118,33 @@ export default class TopBar extends React.Component {
   constructor() {
     super();
     this.state = {
+      searchText: '',
     };
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
     e.preventDefault();
+    this.setState({ searchText: '' });
+  }
+
+  handleTextChange(e) {
+    e.preventDefault();
+    const text = e.target.value;
+    this.setState({ searchText: text });
   }
 
   render() {
     const {
       name,
-      handleTextChange,
-      searchText,
       handleHover,
       greyVote,
       starVote,
       handleMouseLeave,
       handleDropDown,
     } = this.props;
+
     return (
       <div>
         <Wrapper>
@@ -142,24 +156,21 @@ export default class TopBar extends React.Component {
             </ReviewLocation>
           </Title>
 
-          <SearchOptions onChange={handleDropDown}>
+          <SearchOptions>
             <SearchText
               className="searchBox"
               type="text"
-              onChange={handleTextChange}
-              value={searchText}
-
+              onChange={this.handleTextChange}
+              value={this.state.searchText}
             />
             <SearchButton
               type="submit"
               onClick={this.handleClick}
               id="reviewSearchButton"
               onSubmit={this.handleClick}
-
+              src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/search.png"
             >
-              {<i className="fas fa-search fa-2x" />}
             </SearchButton>
-
 
               <span className="dropDown">
                 <DropDown onChange={handleDropDown}>
@@ -192,9 +203,8 @@ export default class TopBar extends React.Component {
                 <div>
                   <span>
                     {starVote.map(number => (
-                      <i
-                        className="far fa-star fa-2x"
-                        style={{ color: 'red' }}
+                      <RedStar
+                        src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/redStar.png"
                         id={number.toString()}
                         onMouseOver={handleHover}
                         onFocus={handleHover}
@@ -204,9 +214,8 @@ export default class TopBar extends React.Component {
                   </span>
                   <span>
                     {greyVote.map(number => (
-                      <i
-                        className="far fa-star fa-2x"
-                        style={{ color: 'grey' }}
+                      <RedStar
+                        src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/greyStar.png"
                         id={number.toString()}
                         onMouseOver={handleHover}
                         onFocus={handleHover}
@@ -234,8 +243,7 @@ TopBar.propTypes = {
   starVote: PropTypes.arrayOf(PropTypes.number).isRequired,
   greyVote: PropTypes.arrayOf(PropTypes.number).isRequired,
   name: PropTypes.string.isRequired,
-  handleTextChange: PropTypes.func.isRequired,
-  searchText: PropTypes.string.isRequired,
   handleHover: PropTypes.func.isRequired,
   handleMouseLeave: PropTypes.func.isRequired,
+  handleDropDown: PropTypes.func.isRequired,
 };
