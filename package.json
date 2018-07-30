@@ -12,7 +12,9 @@
     "build": "webpack -d --watch",
     "start": "nodemon ./server/server.js",
     "testing": "jest --watch *.jsx --coverage",
-    "prod": "webpack --config webpack.prod.js"
+    "prod": "webpack --config webpack.prod.js",
+    "makeDB": "mysql -u root < database/schema.sql",
+    "loadData": "node database/datagenerator.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
