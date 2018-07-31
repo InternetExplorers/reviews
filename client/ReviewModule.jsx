@@ -7,6 +7,7 @@ export default class ReviewModule extends React.Component {
   constructor() {
     super();
     this.state = {
+      toDisplay: [],
       name: 'InitialLoc',
       redVote: [],
       greyVote: [1, 2, 3, 4, 5],
@@ -30,6 +31,7 @@ export default class ReviewModule extends React.Component {
     this.handleStarHover = this.handleStarHover.bind(this);
     this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.handleDropDown = this.handleDropDown.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -44,12 +46,21 @@ export default class ReviewModule extends React.Component {
       contentType: 'application/json',
       success: (response) => {
         this.setState({ reviews: response }, () => {
-          let currentName = this.state.reviews[0].locname;
-          this.setState({ name: currentName });
+          const { reviews } = this.state;
+          const currentName = reviews[0].locname;
+          this.setState({ name: currentName }, () => {
+            this.setState({ toDisplay: response });
+          });
         });
         this.avgStars(response);
       },
     });
+  }
+
+  handleSearch(e) {
+    const { reviews, toDisplay } = this.state;
+    let filteredReviews = reviews.filter(review => review.message.includes(e));
+    this.setState({ toDisplay: filteredReviews });
   }
 
   handleMouseLeave() {
@@ -132,7 +143,7 @@ export default class ReviewModule extends React.Component {
 
   render() {
     const {
-      avgStars, reviews, redVote, greyVote, name,
+      avgStars, reviews, redVote, greyVote, name, toDisplay,
     } = this.state;
     return (
       <div className="mainView flex-container">
@@ -145,8 +156,9 @@ export default class ReviewModule extends React.Component {
           greyVote={greyVote}
           handleMouseLeave={this.handleMouseLeave}
           handleDropDown={this.handleDropDown}
+          handleSearch={this.handleSearch}
         />
-        <Reviews reviews={reviews} />
+        <Reviews reviews={toDisplay} />
       </div>
     );
   }
