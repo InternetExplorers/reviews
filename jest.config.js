@@ -14,6 +14,8 @@ module.exports = {
     '!**/datagenerator**',
     '!**/bundle**',
     '!**/sorter**',
+    '!**/webpack**',
+    '!**/webpack.prod**',
   ],
   testURL: 'http://localhost:3004/',
 };

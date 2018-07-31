@@ -12,14 +12,17 @@ let app;
 let handleTextChangeStub;
 let handleStarHoverStub;
 let handleMouseLeaveStub;
+let handleSearch;
 describe('TopBar testing suite', () => {
   beforeEach(() => {
     handleStarHoverStub = sinon.stub();
     handleTextChangeStub = sinon.stub();
     handleMouseLeaveStub = sinon.stub();
+    handleSearch = sinon.stub();
     app = shallow(
       <TopBar
         className="topBar"
+        handleSearch={handleSearch}
         avg={4}
         name="fakename"
         handleTextChange={handleTextChangeStub}
@@ -37,5 +40,11 @@ describe('TopBar testing suite', () => {
 
   it('should render one <select /> component', () => {
     expect(app.find('.dropDown')).toHaveLength(1);
+  });
+
+  it('should update searchText to empty array on click', (done) => {
+    app.instance().handleClick();
+    done();
+    expect(app.state('searchText')).toEqual('');
   });
 });

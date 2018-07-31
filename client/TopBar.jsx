@@ -124,8 +124,10 @@ export default class TopBar extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(e) {
-    e.preventDefault();
+  handleClick() {
+    const { searchText } = this.state;
+    const { handleSearch } = this.props;
+    handleSearch(searchText);
     this.setState({ searchText: '' });
   }
 
@@ -246,4 +248,5 @@ TopBar.propTypes = {
   handleHover: PropTypes.func.isRequired,
   handleMouseLeave: PropTypes.func.isRequired,
   handleDropDown: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
 };
