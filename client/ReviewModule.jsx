@@ -4,9 +4,11 @@ import TopBar from './TopBar.jsx';
 import Reviews from './Reviews.jsx';
 
 export default class ReviewModule extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { id } = this.props;
     this.state = {
+      businessID: id,
       toDisplay: [],
       name: 'InitialLoc',
       redVote: [],
@@ -35,8 +37,8 @@ export default class ReviewModule extends React.Component {
   }
 
   componentDidMount() {
-    const randomReview = Math.ceil(Math.random() * 100);
-    this.fetchReviews(randomReview);
+    const { businessID } = this.state;
+    this.fetchReviews(businessID);
   }
 
   fetchReviews(restaurantID) {

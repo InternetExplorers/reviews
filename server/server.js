@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use(express.static(path.join(__dirname, '../public')));
+app.use('/:id', express.static(path.join(__dirname, '../public')));
 
 app.get('/locations/:locID/reviews', (req, res) => {
   const { locID } = req.params;
