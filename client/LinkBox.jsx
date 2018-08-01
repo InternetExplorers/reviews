@@ -11,6 +11,7 @@ const Box = styled.div`
 `;
 
 const PopupLink = styled.a`
+  width: 200px;
   text-decoration: none;
   font-size: 1em;
   &:hover {
