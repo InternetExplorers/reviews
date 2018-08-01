@@ -80,9 +80,9 @@ const EmptyUserInfo = styled.span`
   padding-left: 10px;
 `;
 
-const RedStar = styled.img`
-  width: 35px;
-  height: 35px;
+const MouseStar = styled.img`
+  width: 45px;
+  height: 45px;
 `;
 
 const StarsBar = styled.span`
@@ -205,7 +205,7 @@ export default class TopBar extends React.Component {
                 <div>
                   <span>
                     {starVote.map(number => (
-                      <RedStar
+                      <MouseStar
                         src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/star.png?versionId=null"
                         id={number.toString()}
                         onMouseOver={handleHover}
@@ -216,7 +216,7 @@ export default class TopBar extends React.Component {
                   </span>
                   <span>
                     {greyVote.map(number => (
-                      <RedStar
+                      <MouseStar
                         src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/greyStar.png?versionId=null"
                         id={number.toString()}
                         onMouseOver={handleHover}
