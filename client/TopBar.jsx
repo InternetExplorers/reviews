@@ -206,7 +206,7 @@ export default class TopBar extends React.Component {
                   <span>
                     {starVote.map(number => (
                       <RedStar
-                        src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/redStar.png"
+                        src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/star.png?versionId=null"
                         id={number.toString()}
                         onMouseOver={handleHover}
                         onFocus={handleHover}
@@ -217,7 +217,7 @@ export default class TopBar extends React.Component {
                   <span>
                     {greyVote.map(number => (
                       <RedStar
-                        src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/greyStar.png"
+                        src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/greyStar.png?versionId=null"
                         id={number.toString()}
                         onMouseOver={handleHover}
                         onFocus={handleHover}

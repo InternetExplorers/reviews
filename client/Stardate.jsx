@@ -50,8 +50,8 @@ export default class Stardate extends React.Component {
         <span>
           {redVote.map(number => (
             <RedStar
-              src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/redStar.png"
-
+              src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/star.png?versionId=null"
+              alt="redStar"
               key={number.toString()}
             />
           ))}
@@ -59,8 +59,8 @@ export default class Stardate extends React.Component {
         <span>
           {greyVote.map(number => (
             <RedStar
-              src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/greyStar.png"
-              alt="redStar"
+              src="https://s3-us-west-1.amazonaws.com/yelpclonereviews/photos/greyStar.png?versionId=null"
+              alt="greyStar"
               key={number.toString()}
             />
           ))}
