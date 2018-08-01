@@ -29,13 +29,13 @@ const SearchText = styled.textarea`
 
 const SearchButton = styled.img`
   width: 30px;
-  height: 31px;
+  height: 27px;
   padding-left: 0px;
   margin: 0px;
   background-color: red;
   color: white;
   position: relative;
-  top: 0px;
+  top: 2px;
 `;
 
 const SearchOptions = styled.form`
