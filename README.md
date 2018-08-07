@@ -1,3 +1,5 @@
+### DEPRECATED.  See https://github.com/Dev-Stars/final_review_deploy
+
 Reviews
 
 Instructions to use this directory:
