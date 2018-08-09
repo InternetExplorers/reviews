@@ -27,6 +27,45 @@ app.get('/locations/:locID/reviews', (req, res) => {
   });
 });
 
+//add a new review
+app.post('/locations/:locID/reviews/:reviewID', (req, res) => {
+  const { locID } = req.params.locID;
+  const { reviewID } = req.params.reviewID;
+  db.postById(reviewID, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(results);
+    }
+  });
+});
+
+//update a review
+app.put('/locations/:locID/reviews/:reviewId', (req, res) => {
+  const { locID } = req.params.locID;
+  const { reviewID } = req.params.reviewID;
+  db.updateById(reviewID, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(results);
+    }
+  });
+});
+
+//delete a review based on reviewId
+app.delete('/locations/:locID/reviews/:reviewId', (req, res) => {
+  const { locID } = req.params.locID;
+  const { reviewID } = req.params.reviewID;
+  db.deleteById(reviewID, (err, results) => {
+    if (err) {
+      res.send(err);
+    } else {
+      res.send(results);
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`server running at: http://localhost:${port}`);
 });
