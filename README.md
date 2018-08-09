@@ -23,3 +23,9 @@ Server:
 
 Client:
   - In your browser, navigate to:  http://localhost:3004
+
+CRUD Operations:
+- GET /locations/:locID/reviews
+- PUT /locations/:locID/reviews/:reviewId
+- POST /locations/:locID/reviews/:reviewID
+- DELETE /locations/:locID/reviews/:reviewId
