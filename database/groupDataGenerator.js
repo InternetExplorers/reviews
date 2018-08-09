@@ -1,5 +1,4 @@
 const fs = require('fs');
-// const faker = require('faker');
 
 const adj = [
   'Tasty',
@@ -12,7 +11,7 @@ const adj = [
   'Ergonomic',
   'Refined',
   'Licensed',
-];
+  ];
 
 const append = (data) => {
   const chunks = [];
@@ -28,9 +27,11 @@ const append = (data) => {
 
 const makeUniqueBusinesses = (rounds) => {
   const storage = [];
+  let id = 1;
   const makeCombos = (counter, combo = []) => {
     if (!counter) {
-      storage.push(combo);
+      storage.push(`${id}, ${combo.join(' ')}`);
+      id += 1;
     } else {
       for (let i = 0; i < adj.length; i += 1) {
         const element = adj[i];
@@ -40,7 +41,6 @@ const makeUniqueBusinesses = (rounds) => {
   };
   makeCombos(rounds);
   append(storage);
-  // console.log(storage);
 };
 
-makeUniqueBusinesses(7); //should be 7
+makeUniqueBusinesses(7);
