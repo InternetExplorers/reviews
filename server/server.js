@@ -27,6 +27,51 @@ app.get('/locations/:locID/reviews', (req, res) => {
   });
 });
 
+//add a new review based on reviewId
+app.post('/locations/:locID/reviews/:reviewID', (req, res) => {
+  const { locID } = req.params.locID;
+  const { reviewID } = req.params.reviewID;
+  db.postById(reviewID, (err, results) => {
+    if (err) {
+      res.status(404).send();
+      res.send(err);
+    } else {
+      res.status(201).send();
+      res.send(results);
+    }
+  });
+});
+
+//update a review based on reviewId
+app.put('/locations/:locID/reviews/:reviewID', (req, res) => {
+  const { locID } = req.params.locID;
+  const { reviewID } = req.params.reviewID;
+  db.updateById(reviewID, (err, results) => {
+    if (err) {
+      res.status(404).send();
+      res.send(err);
+    } else {
+      res.status(204).send();
+      res.send(results);
+    }
+  });
+});
+
+//delete a review based on reviewId
+app.delete('/locations/:locID/reviews/:reviewID', (req, res) => {
+  const { locID } = req.params.locID;
+  const { reviewID } = req.params.reviewID;
+  db.deleteById(reviewID, (err, results) => {
+    if (err) {
+      res.status(404).send();
+      res.send(err);
+    } else {
+      res.status(204).send();
+      res.send(results);
+    }
+  });
+});
+
 app.listen(port, () => {
   console.log(`server running at: http://localhost:${port}`);
 });
