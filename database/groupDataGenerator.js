@@ -11,18 +11,18 @@ const adj = [
   'Ergonomic',
   'Refined',
   'Licensed',
-  ];
+];
 
 const append = (data) => {
   const chunks = [];
   let prevIdx = 0;
-  const headers = ['locationID', 'restaurantName']; //add in the headers
-  for (let j = 0; j <= data.length; j += 100000) {
-    chunks.push(headers.join('\n')); //add in the headers
+  // const headers = ['locationID', 'restaurantName']; //add in the headers
+  for (let j = 0; j <= data.length; j += 1000000) { 
+    // chunks.push(headers.join('\n')); //add in the headers
     chunks.push(data.slice(prevIdx, j).join('\n'));
     prevIdx = j;
   }
-  for (let i = 1; i <= 100; i += 1) {
+  for (let i = 1; i <= 10; i += 1) { //num files
     fs.appendFileSync(`data${i}.csv`, chunks[i]);
   }
 };
