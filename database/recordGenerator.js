@@ -28,11 +28,9 @@ const writeToFile = (numFiles, recordsPerChunk, chunksPerFile, recordType, fileN
   }
 };
 
-// createChunkedRecordSet(5000, 'user');
+// 20M user records
+writeToFile(200, 5000, 20, 'user', 'userData');
 
-//remember to write to file
-writeToFile(2, 5000, 20, 'user', 'user');
-writeToFile(2, 5000, 20, 'review', 'review');
-
-
+// 100M review records
+writeToFile(500, 5000, 20, 'review', 'reviewData');
 
