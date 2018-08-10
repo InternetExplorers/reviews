@@ -16,13 +16,11 @@ const adj = [
 const append = (data) => {
   const chunks = [];
   let prevIdx = 0;
-  // const headers = ['locationID', 'restaurantName']; //add in the headers
-  for (let j = 0; j <= data.length; j += 1000000) { 
-    // chunks.push(headers.join('\n')); //add in the headers
+  for (let j = 0; j <= data.length; j += 1000000) {
     chunks.push(data.slice(prevIdx, j).join('\n'));
     prevIdx = j;
   }
-  for (let i = 1; i <= 10; i += 1) { //num files
+  for (let i = 1; i <= 10; i += 1) { // num files
     fs.appendFileSync(`data${i}.csv`, chunks[i]);
   }
 };
