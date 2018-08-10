@@ -5,7 +5,7 @@ CREATE DATABASE records;
 USE records;
 
 CREATE TABLE users (
-  id int NOT NULL AUTO_INCREMENT,
+  id int NOT NULL SERIAL,
   name varchar(20),
   userLoc varchar(40),
   numFriends int,
@@ -16,13 +16,13 @@ CREATE TABLE users (
 );
 
 CREATE TABLE locations (
-  id int NOT NULL AUTO_INCREMENT,
+  id int NOT NULL SERIAL,
   locname varchar(100),
   PRIMARY KEY(ID)
 );
 
 CREATE TABLE reviews (
-  id int NOT NULL AUTO_INCREMENT,
+  id int NOT NULL SERIAL,
   message text,
   stars int NOT NULL,
   posted date,
