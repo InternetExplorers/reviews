@@ -22,7 +22,7 @@ const createChunkedRecordSet = (chunkSize, recordType) => {
 const writeToFile = (numFiles, recordsPerChunk, chunksPerFile, recordType, fileName) => {
   for (let i = 1; i <= numFiles; i += 1) {
     for (let j = 1; j <= chunksPerFile; j += 1) {
-      fs.appendFileSync(`${fileName}${i}.txt`, createChunkedRecordSet(recordsPerChunk, recordType));
+      fs.appendFileSync(`${fileName}${i}.csv`, createChunkedRecordSet(recordsPerChunk, recordType));
     }
     console.log(`The data was appended to file ${fileName}${i}!`);
   }
