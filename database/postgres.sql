@@ -6,7 +6,7 @@ CREATE DATABASE records;
 
 CREATE TABLE IF NOT EXISTS users (
   id int NOT NULL,
-  name varchar(20),
+  name varchar(50),
   userLoc varchar(40),
   numFriends int,
   numPhotos int,
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS reviews (
   id int NOT NULL,
   message text,
   stars int NOT NULL,
-  posted date,
+  posted varchar(15),
   userID int,
   locID int,
   PRIMARY KEY(id),
@@ -33,9 +33,16 @@ CREATE TABLE IF NOT EXISTS reviews (
   FOREIGN KEY(userID) REFERENCES users (id)
 );
 
-do $$
-FOR i IN 1...100 LOOP
-  COPY locations FROM '/Users/kristiedesiree/Desktop/reviews/database/data' || i ||'.csv' DELIMITER ',';
-END LOOP;
-$$
+--shut off foreign key checks to decrease insertion time
+ALTER TABLE users DISABLE TRIGGER ALL;
+ALTER TABLE locations DISABLE TRIGGER ALL;
+ALTER TABLE reviews DISABLE TRIGGER ALL;
 
+--to load into locations table (there will be files numbered 1-5)
+COPY reviews FROM '/Users/kristiedesiree/Desktop/reviews/database/data1.csv' DELIMITER ',';
+
+--to load into users table (there will be files numbered 1-200)
+COPY reviews FROM '/Users/kristiedesiree/Desktop/reviews/database/userData200.csv' DELIMITER ',';
+
+--to load into reviews table (there will be files numbered 1-500)
+COPY reviews FROM '/Users/kristiedesiree/Desktop/reviews/database/reviewData500.csv' DELIMITER ',';
