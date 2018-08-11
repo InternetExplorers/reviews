@@ -12,7 +12,7 @@ const createChunkedRecordSet = (chunkSize, recordType) => {
       result += `${userRecordId}, ${faker.name.findName()}, ${faker.address.city()}, ${randomNumber(0, 500)}, ${randomNumber(0, 5000)}, ${randomNumber(0, 2000)}, ${faker.internet.avatar()} \n`;
       userRecordId += 1;
     } else if (recordType === 'review') {
-      result += `${reviewRecordId}, ${faker.lorem.paragraph()}, ${randomNumber(1, 6)}, ${randomNumber(1, 13)}-${randomNumber(1, 31)}-${randomNumber(2005, 2018)}, ${randomNumber(1, 20000000)}, ${randomNumber(1, 100000000)} \n`;
+      result += `${reviewRecordId}, ${faker.lorem.paragraph()}, ${randomNumber(1, 6)}, ${randomNumber(1, 13)}-${randomNumber(1, 31)}-${randomNumber(2005, 2018)}, ${randomNumber(1, 20000000)}, ${randomNumber(1, 10000000)} \n`;
       reviewRecordId += 1;
     }
   }
@@ -29,8 +29,8 @@ const writeToFile = (numFiles, recordsPerChunk, chunksPerFile, recordType, fileN
 };
 
 // 20M user records
-writeToFile(200, 5000, 20, 'user', 'userData');
+// writeToFile(200, 5000, 20, 'user', 'userData');
 
 // 100M review records
-writeToFile(500, 5000, 20, 'review', 'reviewData');
+writeToFile(500, 10000, 20, 'review', 'reviewData');
 
