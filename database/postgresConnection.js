@@ -8,19 +8,23 @@ const pgClient = new pg.Client({
   host: 'localhost',
   database: 'records',
   password: 'postgres',
-  post: '5432'
+  post: '5432',
 });
 
 pgClient.connect((err) => {
   if (err) {
-    console.log('error connecting to Postgres', error);
+    console.log('error connecting to Postgres', err);
     throw err;
   } else {
     console.log('connected to Postgres');
   }
 });
 
-pgClient.query('SELECT * FROM locations', (err, res) => {
+// placeholder template to assure that querying works
+
+/*
+pgClient.query('', (err, res) => {
   console.log('result of query', res);
   pgClient.end();
 });
+*/
