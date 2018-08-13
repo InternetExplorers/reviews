@@ -2,7 +2,6 @@ const faker = require('faker');
 const fs = require('file-system');
 
 let userRecordId = 1;
-// let reviewRecordId = 1;
 const randomNumber = (min, limit) => Math.floor(Math.random() * (limit - min)) + min;
 
 const chooseInflatedRecords = (numFiles, percent) => {
@@ -32,7 +31,6 @@ const createChunkedRecordSet = (chunkSize, recordType) => {
       } else {
         result += `${faker.lorem.paragraph()}, ${randomNumber(1, 6)}, ${randomNumber(1, 13)}-${randomNumber(1, 31)}-${randomNumber(2005, 2018)}, ${randomNumber(1, 20000000)}, ${randomNumber(1, 100000000)} \n`; 
       }
-      // reviewRecordId += 1;
     }
   }
   return result;
@@ -47,11 +45,9 @@ const writeToFile = (numFiles, recordsPerChunk, chunksPerFile, recordType, fileN
   }
 };
 
-// 20M user records
-//writeToFile(200, 5000, 20, 'user', 'userData');
+// 20M user records; uncomment to run
+// writeToFile(200, 5000, 20, 'user', 'userData');
 
-// 30M review records
+// 30M review records; uncomment to run
 // 2% of records will have exceptionally high number of reviews
-writeToFile(300, 5000, 20, 'review', 'reviewData');
-
-
+// writeToFile(300, 5000, 20, 'review', 'reviewData');
