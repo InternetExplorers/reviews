@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS locations (
 );
 
 CREATE TABLE IF NOT EXISTS reviews (
-  id int NOT NULL,
+  id SERIAL NOT NULL,
   message text,
   stars int NOT NULL,
   posted varchar(15),
@@ -39,10 +39,10 @@ ALTER TABLE locations DISABLE TRIGGER ALL;
 ALTER TABLE reviews DISABLE TRIGGER ALL;
 
 --to load into locations table (there will be files numbered 1-5)
-COPY reviews FROM '/Users/kristiedesiree/Desktop/reviews/database/data1.csv' DELIMITER ',';
+--COPY reviews FROM '/Users/kristiedesiree/Desktop/reviews/database/data1.csv' DELIMITER ',';
 
 --to load into users table (there will be files numbered 1-200)
-COPY reviews FROM '/Users/kristiedesiree/Desktop/reviews/database/userData200.csv' DELIMITER ',';
+--COPY reviews FROM '/Users/kristiedesiree/Desktop/reviews/database/userData200.csv' DELIMITER ',';
 
---to load into reviews table (there will be files numbered 1-500)
-COPY reviews FROM '/Users/kristiedesiree/Desktop/reviews/database/reviewData500.csv' DELIMITER ',';
+--to load into reviews table (there will be files numbered 1-300)
+--COPY reviews (message, stars, posted, userID, locID) FROM '/Users/kristiedesiree/Desktop/reviews/database/reviewData264.csv' DELIMITER ',';
