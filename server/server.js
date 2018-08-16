@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const db = require('../database/dbAPI');
+const db = require('../database/postgresConnection.js');
 
 const app = express();
 const port = process.env.PORT || 3004;
