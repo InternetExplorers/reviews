@@ -22,9 +22,11 @@ pgClient.connect((err) => {
 
 // placeholder template to assure that querying works
 
-/*
-pgClient.query('', (err, res) => {
-  console.log('result of query', res);
-  pgClient.end();
-});
-*/
+
+// pgClient.query('SELECT * FROM reviews limit 10', (err, res) => {
+//   console.log('result of query', res.rows);
+//   pgClient.end();
+// });
+
+
+module.exports = pgClient;
