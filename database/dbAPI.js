@@ -2,51 +2,66 @@ const path = require('path');
 const db = require(path.join(__dirname, 'postgresConnection.js'));
 
 const getById = function getAllReviewsOfRestaurant(restID, callback) {
-  const queryStr = `select locations.locname, reviews.id, reviews.stars, reviews.posted, users.name, users.userloc, users.numfriends, users.photoloc, users.numphotos, users.numreviews, reviews.message from users, reviews, locations where locations.id=${restID} and reviews.userID = users.id and reviews.locID = locations.id`;
-  db.query(queryStr, restID, (err, data) => {
+  const queryStr =
+    'SELECT locations.locname, reviews.id, reviews.stars, reviews.posted, users.name, users.userloc, users.numfriends, users.photoloc, users.numphotos, users.numreviews, reviews.message from users, reviews, locations WHERE locations.id=($1) AND reviews.userID = users.id AND reviews.locID = locations.id;';
+  const values = [restID];
+  db.query(queryStr, values, (err, data) => {
     if (err) {
       throw err;
     } else {
-      callback(data);
+      callback(data.rows);
     }
   });
 };
 
 // can put an optional id parameter so that the restaurant can be specified
-const addNewRecord = function getAllReviewsOfRestaurant(callback) {
-  const queryStr = `INSERT INTO reviews (message, stars, posted, userId, locId) VALUES ('Veritas vos liberabit. Veritas vos liberabit. Veritas vos liberabit.', 3, '11-11-2011', 123, 8900100);`;
-  db.query(queryStr, (err, data) => {
+const postNewRecord = function addReview(restID, callback) {
+  const queryStr =
+    'INSERT INTO reviews (message, stars, posted, userId, locId) VALUES ($1, $2, $3, $4, $5) RETURNING *;';
+  console.log('here is the restaurant id', restID);
+  const values = [
+    'Veritas vos liberabit. Veritas vos liberabit. Veritas vos liberabit.',
+    3,
+    '11-11-2011',
+    123,
+    restID,
+  ];
+  db.query(queryStr, values, (err, data) => {
     if (err) {
       throw err;
     } else {
-      callback(data);
+      callback(data.rows);
     }
   });
 };
 
-const deleteById = function getAllReviewsOfRestaurant(restID, callback) {
-  const queryStr = `DELETE FROM reviews WHERE id = ${restID};`;
-  db.query(queryStr, restID, (err, data) => {
+const deleteById = function deleteReview(restID, callback) {
+  const queryStr = 'DELETE FROM reviews WHERE id = $1;';
+  const values = [restID];
+  db.query(queryStr, values, (err, data) => {
     if (err) {
       throw err;
     } else {
-      callback(data);
+      console.log('successfully deleted the review');
+      callback(data.rows);
     }
   });
 };
 
-const updateById= function getAllReviewsOfRestaurant(restID, callback) {
-  const queryStr = `UPDATE reviews SET message = 'Veritas vos liberabit. Audi vide tace. Lorem ipsum dolor. Doler libero fuga.' WHERE id = ${restId}`
-
+const updateById = function updateReview(restID, callback) {
+  const queryStr = `UPDATE reviews SET message = 'Veritas vos liberabit. Audi vide tace. Lorem ipsum dolor. Doler libero fuga.' WHERE id = ${restId}`;
   db.query(queryStr, restID, (err, data) => {
     if (err) {
       throw err;
     } else {
-      callback(data);
+      callback(data.rows);
     }
   });
 };
 
 module.exports = {
   getById,
+  postNewRecord,
+  deleteById,
+  updateById,
 };
