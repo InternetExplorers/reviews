@@ -47,8 +47,8 @@ app.post('/locations/:locID/reviews', (req, res) => {
 
 //update a review based on reviewId
 app.put('/locations/:locID/reviews/:reviewID', (req, res) => {
-  const { locID } = req.params.locID;
-  const { reviewID } = req.params.reviewID;
+  const { locID, reviewId } = req.params;
+  // const { reviewID } = req.params.reviewID;
   db.updateById(reviewID, (err, results) => {
     if (err) {
       res.status(404).send();
@@ -62,14 +62,16 @@ app.put('/locations/:locID/reviews/:reviewID', (req, res) => {
 
 //delete a review based on reviewId
 app.delete('/locations/:locID/reviews/:reviewID', (req, res) => {
-  const { locID } = req.params.locID;
-  const { reviewID } = req.params.reviewID;
+  const { locID, reviewID } = req.params;
+  // const { reviewID } = req.params.reviewID;
+  console.log('rp reviewid', req.params.reviewID);
+  console.log('ss review id', reviewID);
   db.deleteById(reviewID, (err, results) => {
     if (err) {
-      res.status(404).send();
+      // res.status(404).send();
       res.send(err);
     } else {
-      res.status(204).send();
+      // res.status(204).send();
       res.send(results);
     }
   });
