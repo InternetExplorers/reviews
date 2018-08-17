@@ -3,13 +3,21 @@ config:
   phases:
     - duration: 20
       arrivalRate: 20
-  defaults:
-    headers:
-      x-my-service-auth: '987401838271002188298567'
+  # defaults:
+  #   headers:
+      # x-my-service-auth: '987401838271002188298567'
 scenarios:
   - flow:
-    - get:
-        url: "/locations/1/reviews"
+    - loop:
+      - get:
+          url: "/locations/ {{ $loopElement }}/reviews"
+      over: 
+        - 9000000
+        - 9500000
+        - 9999999
     - post:
         url: "/locations/1/reviews"
-        
+    # - put:
+    #     url: "/locations/1/reviews/ {{ id }}"
+    # - delete"
+    #   url: ""
