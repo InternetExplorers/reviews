@@ -1,16 +1,20 @@
+const newrelic = require('newrelic');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const db = require('../database/dbAPI');
+const db = require('../database/dbAPI.js');
 
 const app = express();
 const port = process.env.PORT || 3004;
 
 app.use(bodyParser.json());
- 
+
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
   next();
 });
 
@@ -21,53 +25,52 @@ app.get('/locations/:locID/reviews', (req, res) => {
   db.getById(locID, (err, results) => {
     if (err) {
       res.send(err);
-    } else {
-      res.send(results);
-    }
-  });
-});
-
-//add a new review based on reviewId
-app.post('/locations/:locID/reviews/:reviewID', (req, res) => {
-  const { locID } = req.params.locID;
-  const { reviewID } = req.params.reviewID;
-  db.postById(reviewID, (err, results) => {
-    if (err) {
       res.status(404).send();
-      res.send(err);
     } else {
-      res.status(201).send();
       res.send(results);
+      res.status.send(200);
     }
   });
 });
 
-//update a review based on reviewId
+// add a new review based on reviewId
+app.post('/locations/:locID/reviews', (req, res) => {
+  const { locID } = req.params;
+  db.postNewRecord(locID, (err, results) => {
+    if (err) {
+      res.send(err);
+      res.status(404).send();
+    } else {
+      res.send(results);
+      res.status(201).send();
+    }
+  });
+});
+
+// update a review based on reviewId
 app.put('/locations/:locID/reviews/:reviewID', (req, res) => {
-  const { locID } = req.params.locID;
-  const { reviewID } = req.params.reviewID;
+  const { locID, reviewID } = req.params;
   db.updateById(reviewID, (err, results) => {
     if (err) {
-      res.status(404).send();
       res.send(err);
+      res.status(404).send();
     } else {
-      res.status(204).send();
       res.send(results);
+      res.status(204).send();
     }
   });
 });
 
-//delete a review based on reviewId
+// delete a review based on reviewId
 app.delete('/locations/:locID/reviews/:reviewID', (req, res) => {
-  const { locID } = req.params.locID;
-  const { reviewID } = req.params.reviewID;
+  const { locID, reviewID } = req.params;
   db.deleteById(reviewID, (err, results) => {
     if (err) {
-      res.status(404).send();
       res.send(err);
+      res.status(404).send();
     } else {
-      res.status(204).send();
       res.send(results);
+      res.status(204).send();
     }
   });
 });
