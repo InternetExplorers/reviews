@@ -17,6 +17,7 @@
     "loadData": "node database/datagenerator.js"
   },
   "dependencies": {
+    "artillery": "^1.6.0-22",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "bootstrap": "^3.3.7",
