@@ -36,8 +36,9 @@ const postNewRecord = function addReview(restID, callback) {
 };
 
 const deleteById = function deleteReview(restID, callback) {
-  const queryStr = 'DELETE FROM reviews WHERE id = $1;';
+  const queryStr = 'DELETE FROM reviews WHERE id = $1';
   const values = [restID];
+  console.log(restID);
   db.query(queryStr, values, (err, data) => {
     if (err) {
       throw err;
@@ -49,8 +50,9 @@ const deleteById = function deleteReview(restID, callback) {
 };
 
 const updateById = function updateReview(restID, callback) {
-  const queryStr = `UPDATE reviews SET message = 'Veritas vos liberabit. Audi vide tace. Lorem ipsum dolor. Doler libero fuga.' WHERE id = ${restId}`;
-  db.query(queryStr, restID, (err, data) => {
+  const queryStr = `UPDATE reviews SET message = 'Veritas vos liberabit. Audi vide tace. Lorem ipsum dolor. Doler libero fuga.' WHERE id = $1`;
+  const values = [restID];
+  db.query(queryStr, values, (err, data) => {
     if (err) {
       throw err;
     } else {
