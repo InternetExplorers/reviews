@@ -35,15 +35,15 @@ config:
       arrivalRate: 1
       rampTo: 10
       name: 'warm up'
-    - duration: 120
+    - duration: 20
       arrivalRate: 10
       rampTo: 100
       name: 'warm up p2'
-    - duration: 300
+    - duration: 20
       arrivalRate: 100
-      rampTo: 1000
+      rampTo: 2000
       name: 'warm up p3'
-    # - duration: 300
+    # - duration: 600
     #   arrivalRate: 1000
     #   name: 'max load'
   # defaults:
@@ -55,15 +55,15 @@ scenarios:
     flow:
       - get:
           url: "/locations/{{ locationid }}/reviews"
-  - name: 'POST'
-    flow:
-      - post:
-          url: "/locations/{{ locationid }}/reviews"
-  - name: 'PUT'
-    flow:
-      - put:
-          url: "/locations/9999999/reviews/{{ reviewid }}"
-  - name: 'DELETE'
-    flow:
-      - delete:
-          url: "/locations/9999999/reviews/{{ reviewid }}"
+  # - name: 'POST'
+  #   flow:
+  #     - post:
+  #         url: "/locations/{{ locationid }}/reviews"
+  # - name: 'PUT'
+  #   flow:
+  #     - put:
+  #         url: "/locations/9999999/reviews/{{ reviewid }}"
+  # - name: 'DELETE'
+  #   flow:
+  #     - delete:
+  #         url: "/locations/9999999/reviews/{{ reviewid }}"
