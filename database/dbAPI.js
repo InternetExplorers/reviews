@@ -17,7 +17,7 @@ const getById = function getAllReviewsOfRestaurant(restID, callback) {
 // can put an optional id parameter so that the restaurant can be specified
 const postNewRecord = function addReview(restID, callback) {
   const queryStr =
-    'INSERT INTO reviews (message, stars, posted, userId, locId) VALUES ($1, $2, $3, $4, $5) RETURNING *;';
+    'INSERT INTO reviews (message, stars, posted, userId, locId) VALUES ($1, $2, $3, $4, $5);';
   const values = [
     'Veritas vos liberabit. Veritas vos liberabit. Veritas vos liberabit.',
     3,
@@ -48,7 +48,7 @@ const deleteById = function deleteReview(restID, callback) {
 
 const updateById = function updateReview(restID, callback) {
   const queryStr =
-    "UPDATE reviews SET message = 'I have updated my review to say this now' WHERE id = $1 RETURNING *";
+    "UPDATE reviews SET message = 'I have updated my review to say this now' WHERE id = $1";
   const values = [restID];
   db.query(queryStr, values, (err, data) => {
     if (err) {
