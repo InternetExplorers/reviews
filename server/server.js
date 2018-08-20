@@ -1,12 +1,13 @@
 const newrelic = require('newrelic');
-const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const redis = require('redis');
+const express = require('express');
 const db = require('../database/dbAPI.js');
 
-const app = express();
 const port = process.env.PORT || 3004;
 
+const app = express();
 app.use(bodyParser.json());
 
 app.use(function(req, res, next) {
@@ -20,18 +21,33 @@ app.use(function(req, res, next) {
 
 app.use('/:id', express.static(path.join(__dirname, '../public')));
 
-app.get('/locations/:locID/reviews', (req, res) => {
+const REDIS_PORT = process.env.REDIS_PORT;
+const client = redis.createClient(REDIS_PORT);
+
+client.set('key', 'value');
+
+const cache = (req, res, next) => {
   const { locID } = req.params;
-  db.getById(locID, (err, results) => {
-    if (err) {
-      res.send(err);
-      res.status(404).send();
+  client.get(locID, (error, data) => {
+    if (error) {
+      throw error;
+    } else if (data !== null) {
+      res.send(JSON.parse(data));
     } else {
-      res.send(results);
-      res.status.send(200);
+      next();
     }
   });
-});
+};
+
+const getHandler = (req, res) => {
+  const { locID } = req.params;
+  db.getById(locID, results => {
+    client.set(locID, JSON.stringify(results));
+    res.send(results);
+  });
+};
+
+app.get('/locations/:locID/reviews', cache, getHandler);
 
 // add a new review based on reviewId
 app.post('/locations/:locID/reviews', (req, res) => {
@@ -82,3 +98,4 @@ app.listen(port, () => {
 module.exports = {
   app,
 };
+// }
