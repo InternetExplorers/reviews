@@ -1,15 +1,69 @@
+# config:
+#   target: 'http://localhost:3004'
+#   phases:
+#     - duration: 20
+#       arrivalRate: 20
+#   # defaults:
+#   #   headers:
+#       # x-my-service-auth: '987401838271002188298567'
+# scenarios:
+#   - flow:
+#     - loop:
+#       - get:
+#           url: "/locations/ {{ $loopElement }}/reviews"
+#       over: 
+#         - 9000000
+#         - 9500000
+#         - 9999999
+#     - post:
+#         url: "/locations/1/reviews"
+#     - put:
+#         url: "/locations/1/reviews/32466320"
+#         weight: 5
+#     # - delete"
+#     #   url: ""
+
 config:
   target: 'http://localhost:3004'
+  payload: 
+    path: './payload.csv'
+    fields:
+      - 'locationid'
+      - 'reviewid'
   phases:
     - duration: 20
-      arrivalRate: 20
-  defaults:
-    headers:
-      x-my-service-auth: '987401838271002188298567'
+      arrivalRate: 1
+      rampTo: 10
+      name: 'warm up'
+    - duration: 20
+      arrivalRate: 10
+      rampTo: 100
+      name: 'warm up p2'
+    - duration: 20
+      arrivalRate: 100
+      rampTo: 2000
+      name: 'warm up p3'
+    # - duration: 600
+    #   arrivalRate: 1000
+    #   name: 'max load'
+  # defaults:
+  #   headers:
+      # x-my-service-auth: '987401838271002188298567'
 scenarios:
-  - flow:
-    - get:
-        url: "/locations/1/reviews"
-    - post:
-        url: "/locations/1/reviews"
-        
+  - name: 'GET'
+    weight: 6
+    flow:
+      - get:
+          url: "/locations/{{ locationid }}/reviews"
+  # - name: 'POST'
+  #   flow:
+  #     - post:
+  #         url: "/locations/{{ locationid }}/reviews"
+  # - name: 'PUT'
+  #   flow:
+  #     - put:
+  #         url: "/locations/9999999/reviews/{{ reviewid }}"
+  # - name: 'DELETE'
+  #   flow:
+  #     - delete:
+  #         url: "/locations/9999999/reviews/{{ reviewid }}"
