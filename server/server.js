@@ -30,8 +30,12 @@ if (cluster.isMaster) {
 
   app.use('/:id', express.static(path.join(__dirname, '../public')));
 
-  const REDIS_PORT = process.env.REDIS_PORT;
-  const client = redis.createClient(REDIS_PORT);
+  //for running on local host
+  // const REDIS_PORT = process.env.REDIS_PORT;
+  // const client = redis.createClient(REDIS_PORT);
+
+  //for running on EC2
+  const client = redis.createClient({ host: 'redis' });
 
   const cache = (req, res, next) => {
     const { locID } = req.params;
