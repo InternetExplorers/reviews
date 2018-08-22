@@ -5,7 +5,7 @@ CREATE DATABASE records;
 \c records;
 
 CREATE TABLE IF NOT EXISTS users (
-  id int NOT NULL,
+  id SERIAL NOT NULL,
   name varchar(50),
   userLoc varchar(40),
   numFriends int,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS locations (
-  id int NOT NULL,
+  id SERIAL NOT NULL,
   locname varchar(100),
   PRIMARY KEY(ID)
 );
@@ -46,3 +46,5 @@ ALTER TABLE reviews DISABLE TRIGGER ALL;
 
 --to load into reviews table (there will be files numbered 1-300)
 --COPY reviews (message, stars, posted, userID, locID) FROM '/Users/kristiedesiree/Desktop/reviews/database/reviewData264.csv' DELIMITER ',';
+
+--COPY reviews FROM '/Users/kristiedesiree/Desktop/reviews/database/reviews.csv' DELIMITER ',';
