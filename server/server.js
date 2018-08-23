@@ -62,6 +62,10 @@ if (cluster.isMaster) {
 
   app.get('/locations/:locID/reviews', cache, getHandler);
 
+  app.get('/loaderio-fd15c9c10962319a8e2d5a02dca2d20f', (req, res) =>
+    res.send('loaderio-fd15c9c10962319a8e2d5a02dca2d20f')
+  );
+
   // add a new review based on reviewId
   app.post('/locations/:locID/reviews', (req, res) => {
     const { locID } = req.params;
