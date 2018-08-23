@@ -29,6 +29,7 @@ if (cluster.isMaster) {
   app.set('view cache', true);
 
   app.use('/:id', express.static(path.join(__dirname, '../public')));
+  app.use('/', express.static(path.join(__dirname, '../loader')));
 
   //for running on local host
   // const REDIS_PORT = process.env.REDIS_PORT;
