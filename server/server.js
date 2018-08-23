@@ -33,9 +33,11 @@ if (cluster.isMaster) {
   );
 
   app.use('/:id', express.static(path.join(__dirname, '../public')));
+  app.use('/', express.static(path.join(__dirname, '../public')));
 
   //for running on local host
   // const REDIS_PORT = process.env.REDIS_PORT;
+  // console.log(REDIS_PORT);
   // const client = redis.createClient(REDIS_PORT);
 
   //for running on EC2
