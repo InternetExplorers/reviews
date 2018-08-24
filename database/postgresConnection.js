@@ -1,14 +1,15 @@
 const pg = require('pg');
 const connectionParams =
-  'postgres://power_user:$poweruserpassword@ec2-34-226-249-108.compute-1.amazonaws.com/records';
+  'postgres://power_user:$poweruserpassword@ec2-52-91-104-187.compute-1.amazonaws.com/records';
 
 const pgClient = new pg.Client(connectionParams);
 
+// for local
 // const pgClient = new pg.Client({
 //   user: 'postgres',
-//   host: 'ec2-34-226-249-108.compute-1.amazonaws.com',
+//   host: 'localhost',
 //   database: 'records',
-//   password: '$password',
+//   password: 'postgres',
 //   post: '5432',
 // });
 
